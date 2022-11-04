@@ -4,18 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ricardomoraesg.equipes.model.Certificado;
+import ricardomoraesg.equipes.model.Medalha;
 import ricardomoraesg.equipes.service.CertificadoService;
+
 @RestController
 @RequestMapping("/certificado")
 public class CertificadoRestController {
     @Autowired
     private CertificadoService certificadoService;
-
     @GetMapping
     public ResponseEntity<Iterable<Certificado>> buscarTodos(){
         return ResponseEntity.ok(certificadoService.buscarTodos());
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Certificado> buscarPorId(@PathVariable Long id) {
@@ -39,6 +39,5 @@ public class CertificadoRestController {
         certificadoService.deletar(id);
         return ResponseEntity.ok().build();
     }
-
 
 }

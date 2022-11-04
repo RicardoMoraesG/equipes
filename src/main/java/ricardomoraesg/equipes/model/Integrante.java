@@ -19,31 +19,33 @@ public class Integrante {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(length = 20, nullable = false)
-    private java.lang.String usuario;
+    private String usuario;
     @Column(length = 100, nullable = false)
-    private java.lang.String senha;
+    private String senha;
 
     //DADOS PESSOAIS
     @Column(length = 100, nullable = false)
-    private java.lang.String nome;
+    private String nome;
     @Column(length = 100)
-    private java.lang.String sobrenome;
+    private String sobrenome;
     @Column(length = 50, nullable = false)
-    private java.lang.String email;
+    private String email;
     @Column(length = 20, nullable = false)
-    private java.lang.String telefone;
+    private String telefone;
 
     //REGRA DE NEGÓCIO.
     /**
      * Exemplos: Matrícula no curso superior, clube esportivo ou empresa;
      */
     @Column(length = 100)
-    private java.lang.String matriculaInstitucional;
+    private String matriculaInstitucional;
 
 
     //CONTEXTOS DE PARTICIPAÇÃO NA EQUIPE.
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Conquista> conquistas = new ArrayList<>();
+    private List<Medalha> medalhas = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Certificado> certificados = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
     private Equipe equipe;
     @OneToOne(fetch = FetchType.LAZY)
@@ -69,44 +71,6 @@ public class Integrante {
     }
 
 
-
-    public void setEquipe(Equipe equipe) {
-        this.equipe = equipe;
-    }
-
-    public Funcao getFuncao() {
-        return funcao;
-    }
-
-    public void setFuncao(Funcao funcao) {
-        this.funcao = funcao;
-    }
-
-    public List<Contrato> getContratos() {
-        return contratos;
-    }
-
-      public void setConquistas(Conquista conquista) {
-        conquistas.add(conquista);
-    }
-    public Equipe getEquipe() {
-        return equipe;
-    }
-
-    /**
-     * TODO: verificar o contrato e incluir na equipe.
-     *
-     * @param equipe
-     */
-    public void setEquipe(Equipe equipe, Contrato contrato) {
-       //TODO: verificar contrato no BD.
-
-       this.equipe = equipe;
-    }
-    public List<Conquista> getConquistas() {
-        return conquistas;
-    }
-
     public Long getId() {
         return id;
     }
@@ -119,7 +83,7 @@ public class Integrante {
         return usuario;
     }
 
-    public void setUsuario(java.lang.String usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
@@ -127,7 +91,7 @@ public class Integrante {
         return senha;
     }
 
-    public void setSenha(java.lang.String senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 
@@ -171,6 +135,59 @@ public class Integrante {
         this.matriculaInstitucional = matriculaInstitucional;
     }
 
+    public List<Medalha> getMedalhas() {
+        return medalhas;
+    }
+
+    public void setMedalhas(List<Medalha> medalhas) {
+        this.medalhas = medalhas;
+    }
+
+    public List<Certificado> getCertificados() {
+        return certificados;
+    }
+
+    public void setCertificados(List<Certificado> certificados) {
+        this.certificados = certificados;
+    }
+
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+
+    public Funcao getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(Funcao funcao) {
+        this.funcao = funcao;
+    }
+
+    public List<Contrato> getContratos() {
+        return contratos;
+    }
+
+    public void setContratos(List<Contrato> contratos) {
+        this.contratos = contratos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Integrante)) return false;
+        Integrante that = (Integrante) o;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getUsuario(), that.getUsuario()) && Objects.equals(getSenha(), that.getSenha()) && Objects.equals(getNome(), that.getNome()) && Objects.equals(getSobrenome(), that.getSobrenome()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getTelefone(), that.getTelefone()) && Objects.equals(getMatriculaInstitucional(), that.getMatriculaInstitucional()) && Objects.equals(getMedalhas(), that.getMedalhas()) && Objects.equals(getCertificados(), that.getCertificados()) && Objects.equals(getEquipe(), that.getEquipe()) && Objects.equals(getFuncao(), that.getFuncao()) && Objects.equals(getContratos(), that.getContratos());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getUsuario(), getSenha(), getNome(), getSobrenome(), getEmail(), getTelefone(), getMatriculaInstitucional(), getMedalhas(), getCertificados(), getEquipe(), getFuncao(), getContratos());
+    }
+
     @Override
     public String toString() {
         return "Integrante{" +
@@ -182,21 +199,11 @@ public class Integrante {
                 ", email='" + email + '\'' +
                 ", telefone='" + telefone + '\'' +
                 ", matriculaInstitucional='" + matriculaInstitucional + '\'' +
-                ", conquistas=" + conquistas +
+                ", medalhas=" + medalhas +
+                ", certificados=" + certificados +
                 ", equipe=" + equipe +
+                ", funcao=" + funcao +
+                ", contratos=" + contratos +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Integrante)) return false;
-        Integrante integrante = (Integrante) o;
-        return Objects.equals(getId(), integrante.getId()) && Objects.equals(getUsuario(), integrante.getUsuario()) && Objects.equals(getSenha(), integrante.getSenha()) && Objects.equals(getNome(), integrante.getNome()) && Objects.equals(getSobrenome(), integrante.getSobrenome()) && Objects.equals(getEmail(), integrante.getEmail()) && Objects.equals(getTelefone(), integrante.getTelefone()) && Objects.equals(getMatriculaInstitucional(), integrante.getMatriculaInstitucional()) && Objects.equals(getConquistas(), integrante.getConquistas()) && Objects.equals(getEquipe(), integrante.getEquipe());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getUsuario(), getSenha(), getNome(), getSobrenome(), getEmail(), getTelefone(), getMatriculaInstitucional(), getConquistas(), getEquipe());
     }
 }

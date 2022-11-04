@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ricardomoraesg.equipes.model.Integrante;
 import ricardomoraesg.equipes.repository.IntegranteRepository;
 import ricardomoraesg.equipes.service.IntegranteService;
-
 import java.util.Optional;
 
 @Service

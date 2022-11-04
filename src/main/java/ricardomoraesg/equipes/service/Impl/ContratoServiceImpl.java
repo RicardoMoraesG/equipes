@@ -3,7 +3,9 @@ package ricardomoraesg.equipes.service.Impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ricardomoraesg.equipes.model.Contrato;
+import ricardomoraesg.equipes.model.Entidade;
 import ricardomoraesg.equipes.repository.ContratoRepository;
+import ricardomoraesg.equipes.repository.EntidadeRepository;
 import ricardomoraesg.equipes.service.ContratoService;
 
 import java.util.List;
@@ -26,15 +28,16 @@ public class ContratoServiceImpl implements ContratoService {
     }
 
     @Override
-    public void inserir(Contrato contrato) {
+    public Contrato inserir(Contrato contrato) {
         contratoRepository.save(contrato);
+        return contrato;
     }
 
     @Override
     public void atualizar(Long id,Contrato contrato) {
         Optional<Contrato> contratoBd = contratoRepository.findById(id);
         if (contratoBd.isPresent()){
-            inserir(contrato);
+            contratoRepository.save(contrato);
         }
     }
 

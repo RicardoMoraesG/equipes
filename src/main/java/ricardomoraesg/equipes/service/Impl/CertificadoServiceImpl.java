@@ -8,22 +8,22 @@ import ricardomoraesg.equipes.service.CertificadoService;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class CertificadoServiceImpl implements CertificadoService {
     @Autowired
     private CertificadoRepository certificadoRepository;
 
-
     @Override
     public Iterable<Certificado> buscarTodos() {
-        List<Certificado> conquistas = certificadoRepository.findAll();
-        return conquistas;
+        List<Certificado> certificado = certificadoRepository.findAll();
+        return certificado;
     }
 
     @Override
     public Certificado buscarPorId(Long id) {
-        Optional<Certificado> conquista = certificadoRepository.findById(id);
-        return conquista.get();
+        Optional<Certificado> certificado = certificadoRepository.findById(id);
+        return certificado.get();
     }
 
     @Override
